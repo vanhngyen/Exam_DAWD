@@ -1,5 +1,4 @@
 package com.example.exam_dawd;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.exam_dawd.R;
+import com.example.exam_dawd.EmployeeAdapter;
+import com.example.exam_dawd.DatabaseHelper;
+import com.example.exam_dawd.Employees;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btDelete.setOnClickListener(this::onClick);
         initData();
         getAllEmployee();
-        employeeAdapter = new EmployeeAdapter(MainActivity.this,listEmp);
+        employeeAdapter = new EmployeeAdapter(com.example.exam_dawd.MainActivity.this,listEmp);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,1);
         recyclerView = findViewById(R.id.rcListEmployee);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -58,15 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         db.employeeDao().insertEmployee(employeeEntity);
     }
 
-    private void insertEmployee()
-    {
-        Employees em = new Employees();
-        em.employeename = edEmployeeName.getText().toString();
-        em.designation = edEmployeeName.getText().toString();
-        em.salary = edSalary.getText().toString();
-        db.employeeDao().insertEmployee(em);
-
-    }
     private void updateEmployee(int id){
         Employees em = db.employeeDao().getBookmark(id);
         em.employeename = edEmployeeName.getText().toString();
@@ -90,6 +84,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else{
             listEmp = db.employeeDao().getAllBookmark();
         }
+
+    }
+    private void insertEmployee()
+    {
+        Employees em = new Employees();
+        em.employeename = edEmployeeName.getText().toString();
+        em.designation = edEmployeeName.getText().toString();
+        em.salary = edSalary.getText().toString();
+        db.employeeDao().insertEmployee(em);
 
     }
 
